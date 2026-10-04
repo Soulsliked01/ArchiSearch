@@ -1,0 +1,82 @@
+/* ArchiSearch : teal du projet, papier calque, repères de chantier */
+:root {
+    --teal: #026669; --teal-deep: #014446; --ink: #1c2627; --muted: #5d6b6c;
+    --paper: #f3f4f2; --card: #fff; --line: #d6dbd9; --signal: #f2b705; --danger: #a52a2a;
+    --radius: 6px;
+    --t-public: #2f6fa3; --t-logement: #c0622f; --t-industriel: #6b7478; --t-culturel: #7b4fa0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 "Segoe UI", system-ui, sans-serif; }
+body > * { max-width: 1100px; margin-inline: auto; }
+body { padding: 1.5rem 1rem 3rem; }
+h1 { margin: 0 0 1rem; color: var(--teal); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+
+/* --- Barre de navigation --- */
+.navbar { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem; background: var(--teal); padding: 0.4rem 0.6rem; border-radius: var(--radius); }
+.menu { list-style: none; display: flex; gap: 0.25rem; margin: 0; padding: 0; }
+.menu a { display: block; padding: 0.6rem 0.9rem; color: #fff; font-weight: 600; text-decoration: none; border-radius: 4px; }
+.menu a:hover, .menu a.active { background: rgba(255, 255, 255, 0.16); }
+.dropdown { position: relative; }
+.dropdown-menu { display: none; position: absolute; top: 100%; left: 0; z-index: 10; min-width: 190px; margin: 0; padding: 0.3rem;
+    list-style: none; background: var(--teal-deep); border-radius: var(--radius); }
+.dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu { display: block; }
+.toolbar { flex: 0 1 260px; }
+#search { width: 100%; padding: 0.5rem 0.75rem; font: inherit; border: 0; border-radius: 4px; }
+
+/* --- Mise en page --- */
+.layout { display: grid; grid-template-columns: 1fr 220px; gap: 1.5rem; margin-top: 1.5rem; align-items: start; }
+.sidebar { position: sticky; top: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.count, .filter-label { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.filter-label a { color: var(--teal); font-weight: 700; }
+
+/* --- Boutons --- */
+button { font: inherit; font-weight: 700; cursor: pointer; border: 0; border-radius: 4px; padding: 0.55rem 1rem; background: var(--teal); color: #fff; }
+button:hover { background: var(--teal-deep); }
+#open-add { background: var(--signal); color: var(--ink); padding: 0.8rem 1rem; }
+#open-add:hover { background: #d9a304; }
+button.secondary { background: #e4e8e6; color: var(--ink); }
+button.secondary:hover { background: var(--line); }
+button.delete-btn { background: none; color: var(--danger); padding: 0.2rem 0.4rem; font-size: 0.85rem; font-weight: 600; }
+button.delete-btn:hover { background: #f6e3e3; }
+
+/* --- Cartes --- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+.building-card { --accent: var(--teal); display: flex; flex-direction: column; overflow: hidden; background: var(--card);
+    border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: var(--radius); }
+.building-card[data-type="public"] { --accent: var(--t-public); }
+.building-card[data-type="logement"] { --accent: var(--t-logement); }
+.building-card[data-type="industriel"] { --accent: var(--t-industriel); }
+.building-card[data-type="culturel"] { --accent: var(--t-culturel); }
+.card-media { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; background-color: #e9f0ef;
+    background-image: linear-gradient(rgba(2, 102, 105, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(2, 102, 105, .15) 1px, transparent 1px);
+    background-size: 16px 16px; }
+.card-media::before { content: attr(data-initial); font-size: 3.2rem; font-weight: 800; color: var(--accent); opacity: .45; }
+.card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card-body { display: flex; flex: 1; flex-direction: column; gap: 0.5rem; padding: 1rem; }
+.card-type { font-size: 0.85rem; font-weight: 700; color: var(--accent); }
+.building-card h2 { margin: 0; font-size: 1.15rem; line-height: 1.25; }
+.building-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.tags li { padding: 0.05rem 0.5rem; font-size: 0.8rem; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); }
+.tags li::before { content: "#"; opacity: .6; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 0.5rem; }
+.card-footer a { color: var(--teal); font-weight: 700; }
+.empty { grid-column: 1 / -1; color: var(--muted); }
+
+/* --- Formulaire d'ajout --- */
+dialog { width: min(480px, 92vw); padding: 1.5rem; border: 0; border-radius: var(--radius); color: var(--ink); }
+dialog::backdrop { background: rgba(10, 30, 30, .5); }
+#add-form { display: flex; flex-direction: column; gap: 0.75rem; }
+#add-form h2 { margin: 0; color: var(--teal); }
+#add-form label { display: flex; flex-direction: column; gap: 0.25rem; font-weight: 600; }
+#add-form :is(input, select, textarea) { padding: 0.5rem; font: inherit; font-weight: 400; border: 1px solid #b9c2c0; border-radius: 4px; }
+.form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+
+@media (max-width: 700px) {
+    .navbar { flex-wrap: wrap; }
+    .toolbar { flex-basis: 100%; }
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; order: -1; }
+}

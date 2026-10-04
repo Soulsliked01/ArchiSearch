@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArchiSearch</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+    <h1>ArchiSearch</h1>
+
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="index.html">Accueil</a></li>
+
+            <li class="dropdown">
+                <a href="#">Types d'architecture</a>
+                <ul class="dropdown-menu">
+                    <li><a href="index.html?type=Public">Public</a></li>
+                    <li><a href="index.html?type=Logement">Logement</a></li>
+                    <li><a href="index.html?type=Industriel">Industriel</a></li>
+                    <li><a href="index.html?type=Culturel">Culturel</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="toolbar">
+            <input id="search" type="text" placeholder="Rechercher">
+        </div>
+    </nav>
+
+    <div class="layout">
+        <main id="cards" class="cards"></main>
+
+        <aside class="sidebar">
+            <button id="open-add" type="button">+ Ajouter un bâtiment</button>
+            <p id="filter-label" class="filter-label" hidden></p>
+            <p id="count" class="count"></p>
+        </aside>
+    </div>
+
+    <dialog id="add-dialog">
+        <form id="add-form" method="dialog">
+            <h2>Ajouter un bâtiment</h2>
+
+            <label>Nom
+                <input name="title" required>
+            </label>
+
+            <label>Type
+                <select name="type">
+                    <option>Public</option>
+                    <option>Logement</option>
+                    <option>Industriel</option>
+                    <option>Culturel</option>
+                </select>
+            </label>
+
+            <label>Image (URL, optionnel)
+                <input name="image" type="url" placeholder="https://...">
+            </label>
+
+            <label>Description
+                <textarea name="description" rows="3" required></textarea>
+            </label>
+
+            <label>Tags (séparés par des virgules)
+                <input name="tags" placeholder="béton, brutalisme, 1950">
+            </label>
+
+            <label>Lien
+                <input name="link" type="url" placeholder="https://...">
+            </label>
+
+            <div class="form-actions">
+                <button type="button" id="cancel-add" class="secondary">Annuler</button>
+                <button type="submit">Enregistrer</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
